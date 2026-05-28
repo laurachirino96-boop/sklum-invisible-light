@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:api.anthropic.com)",
+      "mcp__558e4b17-237f-41c0-84a6-0efd07ca0940__search_files",
+      "mcp__558e4b17-237f-41c0-84a6-0efd07ca0940__list_recent_files",
+      "mcp__558e4b17-237f-41c0-84a6-0efd07ca0940__read_file_content",
+      "Bash(npm --version)",
+      "Bash(npx surge *)",
+      "Bash(npx netlify *)",
+      "Bash(New-Item -ItemType Directory -Path \"D:\\\\__WORK\\\\Sklum\\\\dist\" -Force)",
+      "Bash(Out-Null)",
+      "Bash(Copy-Item \"D:\\\\__WORK\\\\Sklum\\\\Invisible Light · Informe UX.html\" \"D:\\\\__WORK\\\\Sklum\\\\dist\\\\index.html\" -Force)",
+      "Bash(Write-Output \"Done\")",
+      "mcp__Claude_in_Chrome__tabs_context_mcp",
+      "mcp__Claude_in_Chrome__navigate",
+      "mcp__Claude_in_Chrome__computer",
+      "mcp__Claude_in_Chrome__javascript_tool",
+      "Bash(mkdir -p \"D:/__WORK/Sklum/.claude\" && echo \"done\")",
+      "mcp__Claude_Preview__preview_start"
+    ]
+  }
+}

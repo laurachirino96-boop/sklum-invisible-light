@@ -1,0 +1,1739 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Informe UX · Invisible Light · Sklum</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <style>
+    /* ─── TOKENS ─── */
+    :root {
+      --cream:        #EFECE6;
+      --cream-dark:   #DBD4C7;
+      --cream-mid:    #E6E2DA;
+      --white:        #FFFFFF;
+      --black:        #191919;
+      --text:         #2E2E2E;
+      --text-mid:     #747474;
+      --text-light:   #A8A39B;
+      --border:       #D2D2D2;
+      --border-light: #E6E6E5;
+
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-mono:    'DM Mono', 'Courier New', monospace;
+
+      --max: 1200px;
+      --pad: clamp(24px, 5vw, 80px);
+    }
+
+    /* ─── RESET ─── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--white);
+      color: var(--text);
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 300;
+      line-height: 1.7;
+      letter-spacing: 0.01em;
+    }
+
+    img { display: block; width: 100%; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ─── NAV ─── */
+    .nav {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 200;
+      height: 52px;
+      background: var(--white);
+      border-bottom: 1px solid var(--border-light);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 var(--pad);
+    }
+
+    .nav-logo {
+      font-family: var(--font-mono);
+      font-size: 18px;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      color: var(--black);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-mid);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--black); }
+
+    .nav-tag {
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-mid);
+      border: 1px solid var(--border);
+      padding: 5px 14px;
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      padding-top: 52px;
+      min-height: 100vh;
+      background: var(--cream);
+      display: grid;
+      grid-template-rows: 1fr auto;
+    }
+
+    .hero-main {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: end;
+      padding: 80px var(--pad) 60px;
+      gap: 60px;
+    }
+
+    .hero-left {}
+
+    .hero-eyebrow {
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-mid);
+      margin-bottom: 32px;
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(64px, 9vw, 120px);
+      font-weight: 300;
+      line-height: 0.9;
+      letter-spacing: -0.02em;
+      color: var(--black);
+    }
+
+    .hero-title em {
+      font-style: italic;
+      display: block;
+    }
+
+    .hero-right {
+      padding-bottom: 8px;
+    }
+
+    .hero-subtitle {
+      font-family: var(--font-display);
+      font-size: clamp(16px, 2vw, 22px);
+      font-weight: 400;
+      line-height: 1.5;
+      color: var(--text-mid);
+      margin-bottom: 40px;
+      max-width: 440px;
+    }
+
+    .hero-meta-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .hero-meta-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .hero-meta-label {
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-light);
+    }
+
+    .hero-meta-value {
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      color: var(--black);
+    }
+
+    /* ─── TICKER ─── */
+    .ticker {
+      overflow: hidden;
+      border-top: 1px solid var(--border);
+      background: var(--cream);
+      padding: 12px 0;
+    }
+
+    .ticker-inner {
+      display: flex;
+      gap: 60px;
+      white-space: nowrap;
+      animation: ticker 28s linear infinite;
+      width: max-content;
+    }
+
+    .ticker-item {
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-mid);
+    }
+
+    .ticker-sep {
+      color: var(--border);
+    }
+
+    @keyframes ticker {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ─── SECTION BASE ─── */
+    .section {
+      padding: 100px var(--pad);
+    }
+
+    .section--cream { background: var(--cream); }
+    .section--white { background: var(--white); }
+
+    .section-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+    }
+
+    /* ─── SECTION HEADER ─── */
+    .sh {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: end;
+      margin-bottom: 64px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .sh-left {}
+
+    .sh-number {
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      margin-bottom: 20px;
+    }
+
+    .sh-title {
+      font-family: var(--font-display);
+      font-size: clamp(36px, 5vw, 64px);
+      font-weight: 300;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: var(--black);
+    }
+
+    .sh-title em { font-style: italic; }
+
+    .sh-right {}
+
+    .sh-lead {
+      font-size: 13px;
+      line-height: 1.85;
+      color: var(--text-mid);
+      max-width: 480px;
+    }
+
+    .sh-lead strong {
+      color: var(--text);
+      font-weight: 400;
+    }
+
+    /* ─── STATS ROW ─── */
+    .stats-row {
+      background: var(--black);
+      padding: 0 var(--pad);
+    }
+
+    .stats-grid {
+      max-width: var(--max);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+    }
+
+    .stat {
+      padding: 48px 24px;
+      border-right: 1px solid rgba(255,255,255,0.08);
+      text-align: center;
+    }
+
+    .stat:last-child { border-right: none; }
+
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: 48px;
+      font-weight: 300;
+      line-height: 1;
+      color: var(--cream);
+      margin-bottom: 10px;
+    }
+
+    .stat-label {
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(239,236,230,0.45);
+      line-height: 1.5;
+    }
+
+    /* ─── RESUMEN CALLOUT ─── */
+    .callout {
+      border: 1px solid var(--border);
+      padding: 40px 48px;
+      background: var(--white);
+      margin-top: 48px;
+    }
+
+    .callout p {
+      font-family: var(--font-display);
+      font-size: clamp(16px, 2vw, 22px);
+      font-weight: 400;
+      line-height: 1.6;
+      color: var(--text);
+      max-width: 800px;
+    }
+
+    .callout p em { font-style: italic; color: var(--black); }
+
+    /* ─── BRECHA B2B/B2C ─── */
+    .brecha {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border: 1px solid var(--border-light);
+    }
+
+    .brecha-col {
+      padding: 48px;
+    }
+
+    .brecha-col + .brecha-col {
+      border-left: 1px solid var(--border-light);
+    }
+
+    .brecha-label {
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      margin-bottom: 28px;
+    }
+
+    .brecha-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .brecha-list li {
+      font-size: 12px;
+      line-height: 1.6;
+      color: var(--text);
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .brecha-list li::before {
+      content: '—';
+      color: var(--text-light);
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* ─── PARTICIPANTES ─── */
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1px solid var(--border-light);
+      margin-top: 48px;
+    }
+
+    .table thead tr {
+      background: var(--cream);
+    }
+
+    .table th {
+      padding: 14px 20px;
+      text-align: left;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      font-weight: 400;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .table td {
+      padding: 18px 20px;
+      font-size: 12px;
+      color: var(--text);
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .table tr:last-child td { border-bottom: none; }
+    .table tbody tr:hover td { background: var(--cream); }
+
+    .table td:first-child {
+      font-weight: 400;
+      color: var(--black);
+      letter-spacing: 0.06em;
+    }
+
+    .decision-si { color: #4A7A5A; }
+    .decision-no { color: #8B3A3A; }
+
+    /* ─── FRICCIONES ─── */
+    .fricciones-list {
+      display: flex;
+      flex-direction: column;
+      border-top: 1px solid var(--border-light);
+    }
+
+    .friccion {
+      display: grid;
+      grid-template-columns: 100px 1fr 160px;
+      gap: 32px;
+      align-items: start;
+      padding: 40px 0;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .friccion-num-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .friccion-num {
+      font-family: var(--font-display);
+      font-size: 48px;
+      font-weight: 300;
+      line-height: 1;
+      color: var(--border);
+    }
+
+    .friccion-sev {
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 400;
+    }
+
+    .sev-alta  { color: #8B3A3A; }
+    .sev-media { color: #7D6A3F; }
+    .sev-baja  { color: #3D5A6E; }
+
+    .friccion-body {}
+
+    .friccion-title {
+      font-family: var(--font-display);
+      font-size: clamp(18px, 2vw, 24px);
+      font-weight: 400;
+      color: var(--black);
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+
+    .friccion-desc {
+      font-size: 12px;
+      line-height: 1.85;
+      color: var(--text-mid);
+    }
+
+    .friccion-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: flex-end;
+      padding-top: 6px;
+    }
+
+    .meta-badge {
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      background: var(--cream);
+      padding: 4px 10px;
+      border: 1px solid var(--border-light);
+      white-space: nowrap;
+    }
+
+    /* ─── CITAS ─── */
+    .citas-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1px;
+      background: var(--border-light);
+      border: 1px solid var(--border-light);
+    }
+
+    .cita-card {
+      background: var(--white);
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .cita-text {
+      font-family: var(--font-display);
+      font-size: clamp(15px, 1.8vw, 20px);
+      font-style: italic;
+      font-weight: 400;
+      line-height: 1.6;
+      color: var(--black);
+      flex: 1;
+    }
+
+    .cita-author {
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      padding-top: 16px;
+      border-top: 1px solid var(--border-light);
+    }
+
+    /* ─── DEVOLUCIONES ─── */
+    .returns-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border-light);
+      border: 1px solid var(--border-light);
+    }
+
+    .return-item {
+      background: var(--cream);
+      padding: 40px;
+    }
+
+    .return-n {
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      margin-bottom: 20px;
+    }
+
+    .return-title {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 400;
+      color: var(--black);
+      line-height: 1.3;
+      margin-bottom: 16px;
+    }
+
+    .return-body {
+      font-size: 12px;
+      line-height: 1.8;
+      color: var(--text-mid);
+    }
+
+    /* ─── RECOMENDACIONES ─── */
+    .recs-list {
+      display: flex;
+      flex-direction: column;
+      border-top: 1px solid var(--border-light);
+    }
+
+    .rec {
+      display: grid;
+      grid-template-columns: 80px 1fr 200px;
+      gap: 40px;
+      align-items: start;
+      padding: 48px 0;
+      border-bottom: 1px solid var(--border-light);
+      transition: background 0.15s;
+    }
+
+    .rec-id {
+      font-family: var(--font-display);
+      font-size: 40px;
+      font-weight: 300;
+      color: var(--border);
+      line-height: 1;
+    }
+
+    .rec-body {}
+
+    .rec-title {
+      font-family: var(--font-display);
+      font-size: clamp(16px, 2vw, 22px);
+      font-weight: 400;
+      color: var(--black);
+      margin-bottom: 14px;
+      line-height: 1.3;
+    }
+
+    .rec-desc {
+      font-size: 12px;
+      line-height: 1.85;
+      color: var(--text-mid);
+      margin-bottom: 20px;
+    }
+
+    .rec-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .rec-tag {
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      border: 1px solid var(--border-light);
+      padding: 3px 10px;
+    }
+
+    .rec-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 10px;
+      padding-top: 4px;
+    }
+
+    .priority-chip {
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border: 1px solid;
+    }
+
+    .p-inmediata { color: #8B3A3A; border-color: #C9A8A8; background: #F5EFEF; }
+    .p-corto     { color: #7D6A3F; border-color: #C4B68A; background: #F5F0E6; }
+    .p-medio     { color: #3D5A6E; border-color: #8AAFC4; background: #EEF3F7; }
+    .p-largo     { color: var(--text-mid); border-color: var(--border); background: var(--cream); }
+
+    /* ─── MATRIZ ─── */
+    .matrix-table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1px solid var(--border-light);
+    }
+
+    .matrix-table thead tr {
+      background: var(--cream);
+    }
+
+    .matrix-table th {
+      padding: 14px 24px;
+      text-align: left;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      font-weight: 400;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .matrix-table td {
+      padding: 18px 24px;
+      font-size: 12px;
+      color: var(--text);
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .matrix-table tr:last-child td { border-bottom: none; }
+    .matrix-table tbody tr:hover td { background: var(--cream); }
+
+    .matrix-table td:first-child { color: var(--black); }
+
+    .p-dot {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 400;
+    }
+
+    .p-dot::before {
+      content: '';
+      display: inline-block;
+      width: 7px; height: 7px;
+      border-radius: 50%;
+    }
+
+    .pd-inmediata::before { background: #8B3A3A; }
+    .pd-corto::before     { background: #7D6A3F; }
+    .pd-medio::before     { background: #3D5A6E; }
+    .pd-largo::before     { background: var(--text-light); }
+
+    /* ─── OPORTUNIDADES ─── */
+    .opp-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border-light);
+      border: 1px solid var(--border-light);
+    }
+
+    .opp-item {
+      background: var(--white);
+      padding: 48px;
+    }
+
+    .opp-n {
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      margin-bottom: 20px;
+    }
+
+    .opp-title {
+      font-family: var(--font-display);
+      font-size: clamp(18px, 2vw, 24px);
+      font-weight: 400;
+      color: var(--black);
+      margin-bottom: 20px;
+      line-height: 1.3;
+    }
+
+    .opp-body {
+      font-size: 12px;
+      line-height: 1.85;
+      color: var(--text-mid);
+    }
+
+    /* ─── EDITORIAL DIVIDER ─── */
+    .ed-row {
+      padding: 80px var(--pad);
+      background: var(--black);
+      overflow: hidden;
+    }
+
+    .ed-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 40px;
+    }
+
+    .ed-title {
+      font-family: var(--font-display);
+      font-size: clamp(48px, 8vw, 110px);
+      font-weight: 300;
+      line-height: 0.9;
+      color: var(--cream);
+    }
+
+    .ed-title em { font-style: italic; display: block; }
+
+    .ed-right {
+      max-width: 360px;
+      text-align: right;
+    }
+
+    .ed-label {
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(239,236,230,0.4);
+      margin-bottom: 16px;
+    }
+
+    .ed-body {
+      font-size: 12px;
+      line-height: 1.9;
+      color: rgba(239,236,230,0.55);
+    }
+
+    /* ─── CONCLUSION ─── */
+    .conclusion-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .conclusion-quote {
+      font-family: var(--font-display);
+      font-size: clamp(22px, 3vw, 36px);
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.4;
+      color: var(--black);
+    }
+
+    .conclusion-quote em {
+      font-style: normal;
+      display: block;
+      margin-top: 8px;
+      color: var(--text-mid);
+      font-size: 0.85em;
+    }
+
+    .conclusion-body {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .conclusion-body p {
+      font-size: 12px;
+      line-height: 1.9;
+      color: var(--text-mid);
+    }
+
+    /* ─── FOOTER ─── */
+    .footer {
+      background: var(--cream);
+      border-top: 1px solid var(--border-light);
+      padding: 48px var(--pad);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .footer-logo {
+      font-family: var(--font-mono);
+      font-size: 18px;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      color: var(--black);
+    }
+
+    .footer-center {
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      text-align: center;
+    }
+
+    .footer-right {
+      font-size: 11px;
+      color: var(--text-light);
+      text-align: right;
+      line-height: 1.6;
+    }
+
+    /* ─── REVEAL ─── */
+    .r {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .r.v {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      .hero-main        { grid-template-columns: 1fr; }
+      .sh               { grid-template-columns: 1fr; gap: 20px; }
+      .brecha           { grid-template-columns: 1fr; }
+      .brecha-col + .brecha-col { border-left: none; border-top: 1px solid var(--border-light); }
+      .citas-grid       { grid-template-columns: 1fr; }
+      .opp-grid         { grid-template-columns: 1fr; }
+      .returns-grid     { grid-template-columns: 1fr; }
+      .friccion         { grid-template-columns: 64px 1fr; }
+      .friccion-meta    { display: none; }
+      .rec              { grid-template-columns: 56px 1fr; }
+      .rec-right        { display: none; }
+      .stats-grid       { grid-template-columns: repeat(3, 1fr); }
+      .stat             { padding: 32px 16px; }
+      .conclusion-grid  { grid-template-columns: 1fr; gap: 40px; }
+      .ed-inner         { flex-direction: column; align-items: flex-start; }
+      .ed-right         { text-align: left; }
+      .footer           { flex-direction: column; text-align: center; }
+      .footer-right     { text-align: center; }
+      nav .nav-links    { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+<nav class="nav">
+  <span class="nav-logo">sklum</span>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="#contexto">Contextosss</a></li>
+      <li><a href="#fricciones">Fricciones</a></li>
+      <li><a href="#usuarios">Usuarios</a></li>
+      <li><a href="#recomendaciones">Recomendaciones</a></li>
+      <li><a href="#conclusion">Conclusión</a></li>
+    </ul>
+    <span class="nav-tag">Informe UX · Mayo 2026</span>
+  </div>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section class="hero">
+  <div class="hero-main">
+    <div class="hero-left r">
+      <p class="hero-eyebrow">Test de usabilidad · 5 participantes · Análisis heurístico</p>
+      <h1 class="hero-title">
+        Invisible<br>
+        <em>Lightrtyuo</em>
+      </h1>
+    </div>
+    <div class="hero-right r" style="transition-delay:0.1s">
+      <p class="hero-subtitle">Análisis estratégico y recomendaciones para la democratización B2C de la iluminación arquitectónica en la categoría Invisible Light.</p>
+      <div class="hero-meta-list">
+        <div class="hero-meta-row">
+          <span class="hero-meta-label">Preparado por</span>
+          <span class="hero-meta-value">Laura Chirino · Product Designer & UX/UI</span>
+        </div>
+        <div class="hero-meta-row">
+          <span class="hero-meta-label">Fecha</span>
+          <span class="hero-meta-value">Mayo 2026</span>
+        </div>
+        <div class="hero-meta-row">
+          <span class="hero-meta-label">Método</span>
+          <span class="hero-meta-value">Test moderado · 5 participantes</span>
+        </div>
+        <div class="hero-meta-row">
+          <span class="hero-meta-label">Páginas analizadas</span>
+          <span class="hero-meta-value">Categoría + Ficha producto Luisiana</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ticker">
+    <div class="ticker-inner">
+      <span class="ticker-item">5/5 bloqueados por instalación <span class="ticker-sep">·</span></span>
+      <span class="ticker-item">4/5 sin orientación de temperatura <span class="ticker-sep">·</span></span>
+      <span class="ticker-item">4/5 pidieron imágenes de ambiente <span class="ticker-sep">·</span></span>
+      <span class="ticker-item">3/5 sin guía de cantidad <span class="ticker-sep">·</span></span>
+      <span class="ticker-item">4 de 5 completaron la compra simulada <span class="ticker-sep">·</span></span>
+      <span class="ticker-item">12 fricciones identificadas <span class="ticker-sep">·</span></span>
+      <span class="ticker-item">5/5 bloqueados por instalación <span class="ticker-sep">·</span></span>
+      <span class="ticker-item">4/5 sin orientación de temperatura <span class="ticker-sep">·</span></span>
+      <span class="ticker-item">4/5 pidieron imágenes de ambiente <span class="ticker-sep">·</span></span>
+      <span class="ticker-item">3/5 sin guía de cantidad <span class="ticker-sep">·</span></span>
+      <span class="ticker-item">4 de 5 completaron la compra simulada <span class="ticker-sep">·</span></span>
+      <span class="ticker-item">12 fricciones identificadas <span class="ticker-sep">·</span></span>
+    </div>
+  </div>
+</section>
+
+<!-- ─── STATS ─── -->
+<div class="stats-row">
+  <div class="stats-grid">
+    <div class="stat r">
+      <div class="stat-num">5</div>
+      <div class="stat-label">Participantes</div>
+    </div>
+    <div class="stat r" style="transition-delay:.05s">
+      <div class="stat-num">29,6'</div>
+      <div class="stat-label">Duración media</div>
+    </div>
+    <div class="stat r" style="transition-delay:.1s">
+      <div class="stat-num">4/5</div>
+      <div class="stat-label">Completaron compra</div>
+    </div>
+    <div class="stat r" style="transition-delay:.15s">
+      <div class="stat-num">5/5</div>
+      <div class="stat-label">Bloqueados por instalación</div>
+    </div>
+    <div class="stat r" style="transition-delay:.2s">
+      <div class="stat-num">4/5</div>
+      <div class="stat-label">Sin guía de temperatura</div>
+    </div>
+    <div class="stat r" style="transition-delay:.25s">
+      <div class="stat-num">12</div>
+      <div class="stat-label">Fricciones identificadas</div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── RESUMEN ─── -->
+<section class="section section--white" id="resumen">
+  <div class="section-inner">
+    <div class="sh r">
+      <div class="sh-left">
+        <p class="sh-number">00 · Resumen ejecutivo</p>
+        <h2 class="sh-title">La demanda existe.<br><em>La experiencia, todavía no.</em></h2>
+      </div>
+      <div class="sh-right">
+        <p class="sh-lead">Invisible Light es una apuesta estratégica de Sklum para democratizar la iluminación arquitectónica. El test confirma que <strong>el producto y la propuesta de valor son sólidos</strong>, pero la experiencia digital no está diseñada para el usuario B2C: carece del contenido educativo y las guías de decisión que ese usuario necesita para pasar de la inspiración a la compra.</p>
+      </div>
+    </div>
+
+    <div class="callout r">
+      <p>La barrera más crítica detectada es universal: <em>los 5 usuarios se bloquearon ante la falta de información sobre instalación.</em> El segundo problema es la ausencia de orientación para elegir la temperatura de color. Ambas fricciones son causas directas de abandono de compra y de devoluciones post-compra.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── EDITORIAL DIVIDER 1 ─── -->
+<div class="ed-row">
+  <div class="ed-inner">
+    <div class="ed-title r">
+      [Invisible<br><em>Light]</em>
+    </div>
+    <div class="ed-right r" style="transition-delay:.1s">
+      <p class="ed-label">Sklum · Categoría Iluminación · 2026</p>
+      <p class="ed-body">Democratizar la iluminación arquitectónica no es un problema de producto. Es un problema de experiencia digital. El producto es excelente. La experiencia, todavía no está diseñada para quien la quiere comprar.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ─── CONTEXTO ─── -->
+<section class="section section--cream" id="contexto">
+  <div class="section-inner">
+    <div class="sh r">
+      <div class="sh-left">
+        <p class="sh-number">01 · Contexto estratégico</p>
+        <h2 class="sh-title">El reto de<br><em>democratizar</em></h2>
+      </div>
+      <div class="sh-right">
+        <p class="sh-lead">La iluminación empotrada trimless ha sido históricamente un producto B2B. Sklum plantea vender directamente al consumidor que la ha visto en Pinterest, en la reforma de un conocido o en un hotel. Ese salto requiere una experiencia completamente distinta.</p>
+      </div>
+    </div>
+
+    <div class="brecha r">
+      <div class="brecha-col">
+        <p class="brecha-label">Usuario B2B — lo que sabe</p>
+        <ul class="brecha-list">
+          <li>Conoce qué es un trimless</li>
+          <li>Entiende temperaturas de color</li>
+          <li>Sabe calcular unidades por m²</li>
+          <li>Tiene instalador de confianza</li>
+          <li>Prepara el hueco antes de comprar</li>
+        </ul>
+      </div>
+      <div class="brecha-col">
+        <p class="brecha-label">Usuario B2C — lo que necesita</p>
+        <ul class="brecha-list">
+          <li>Ha visto esto en Pinterest</li>
+          <li>No sabe qué es "trimless"</li>
+          <li>No sabe si necesita electricista</li>
+          <li>No sabe cuántas unidades comprar</li>
+          <li>Teme equivocarse y no poder devolver</li>
+        </ul>
+      </div>
+    </div>
+
+    <table class="table r" style="margin-top:48px">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Edad</th>
+          <th>Perfil</th>
+          <th>Dispositivo</th>
+          <th>Decisión final</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>U1</td>
+          <td>47, H</td>
+          <td>Obrero, manitas autodidacta</td>
+          <td>Móvil</td>
+          <td class="decision-si">Compraría</td>
+        </tr>
+        <tr>
+          <td>U2</td>
+          <td>30, H</td>
+          <td>Ingeniero automático</td>
+          <td>Móvil</td>
+          <td class="decision-si">Compraría</td>
+        </tr>
+        <tr>
+          <td>U3</td>
+          <td>50, M</td>
+          <td>Doctora, amante de la decoración</td>
+          <td>Tablet</td>
+          <td class="decision-si">Compraría</td>
+        </tr>
+        <tr>
+          <td>U4</td>
+          <td>29, M</td>
+          <td>Economista, fan de IKEA</td>
+          <td>Desktop</td>
+          <td class="decision-si">Compraría</td>
+        </tr>
+        <tr>
+          <td>U5</td>
+          <td>31, H</td>
+          <td>Ing. ciberseguridad</td>
+          <td>Desktop</td>
+          <td class="decision-no">No compraría</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ─── FRICCIONES ─── -->
+<section class="section section--white" id="fricciones">
+  <div class="section-inner">
+    <div class="sh r">
+      <div class="sh-left">
+        <p class="sh-number">02 · Mapa de fricciones</p>
+        <h2 class="sh-title">12 problemas<br><em>priorizados</em></h2>
+      </div>
+      <div class="sh-right">
+        <p class="sh-lead">Clasificados por severidad e impacto en conversión. Los seis primeros son de severidad alta y deben abordarse en la primera iteración de mejoras.</p>
+      </div>
+    </div>
+
+    <div class="fricciones-list">
+
+      <div class="friccion r">
+        <div class="friccion-num-wrap">
+          <span class="friccion-num">01</span>
+          <span class="friccion-sev sev-alta">Alta</span>
+        </div>
+        <div class="friccion-body">
+          <h3 class="friccion-title">Instalación — bloqueador universal</h3>
+          <p class="friccion-desc">Los 5 usuarios preguntaron por la instalación. U5, el único que no compraría, lo citó como razón principal de abandono. U1, siendo manitas, buscó la información y no la encontró completa. La web no responde a '¿puedo instalarlo yo?', '¿necesito electricista?', '¿qué herramientas necesito?' ni '¿es compatible con mi techo?'.</p>
+        </div>
+        <div class="friccion-meta">
+          <span class="meta-badge">Ficha producto</span>
+          <span class="meta-badge">5/5 usuarios</span>
+        </div>
+      </div>
+
+      <div class="friccion r">
+        <div class="friccion-num-wrap">
+          <span class="friccion-num">02</span>
+          <span class="friccion-sev sev-alta">Alta</span>
+        </div>
+        <div class="friccion-body">
+          <h3 class="friccion-title">Temperatura de color sin orientación</h3>
+          <p class="friccion-desc">4 de 5 usuarios no supieron elegir entre 2700K, 3000K y 4000K. U5 no entendió qué significaba. U1 adivinó. U2 pidió que la página le aconsejara. Sin guía visual de temperatura, la elección es una apuesta — y una causa directa de devolución.</p>
+        </div>
+        <div class="friccion-meta">
+          <span class="meta-badge">Ficha producto</span>
+          <span class="meta-badge">4/5 usuarios</span>
+        </div>
+      </div>
+
+      <div class="friccion r">
+        <div class="friccion-num-wrap">
+          <span class="friccion-num">03</span>
+          <span class="friccion-sev sev-alta">Alta</span>
+        </div>
+        <div class="friccion-body">
+          <h3 class="friccion-title">Imágenes sin contexto real de uso</h3>
+          <p class="friccion-desc">4 de 5 usuarios pidieron más imágenes del producto instalado en un espacio real. U2 criticó que las imágenes de techo 'pierden profundidad y parecen ficticias'. Para un producto cuyo valor diferencial es cómo transforma el espacio, la galería debería mostrar ese espacio transformado.</p>
+        </div>
+        <div class="friccion-meta">
+          <span class="meta-badge">Ficha producto</span>
+          <span class="meta-badge">4/5 usuarios</span>
+        </div>
+      </div>
+
+      <div class="friccion r">
+        <div class="friccion-num-wrap">
+          <span class="friccion-num">04</span>
+          <span class="friccion-sev sev-alta">Alta</span>
+        </div>
+        <div class="friccion-body">
+          <h3 class="friccion-title">Sin guía de cantidad necesaria</h3>
+          <p class="friccion-desc">3 de 5 usuarios mencionaron no saber cuántas unidades necesitarían. U4: 'estaría bien que te recomendara cantidad según metros cuadrados'. Sin calculadora o guía de iluminación por m², el usuario arriesga comprar de más o de menos.</p>
+        </div>
+        <div class="friccion-meta">
+          <span class="meta-badge">Ficha producto</span>
+          <span class="meta-badge">3/5 usuarios</span>
+        </div>
+      </div>
+
+      <div class="friccion r">
+        <div class="friccion-num-wrap">
+          <span class="friccion-num">05</span>
+          <span class="friccion-sev sev-alta">Alta</span>
+        </div>
+        <div class="friccion-body">
+          <h3 class="friccion-title">Nombre "Invisible Light" no es intuitivo</h3>
+          <p class="friccion-desc">3 de 5 usuarios usaron el buscador con términos como 'plafon', 'luminaria invisible' o 'iluminación'. U5: 'le confunde que un producto de iluminación se llame invisible'. U2 propuso nombrarlo por tipo de producto (empotrado, interior/exterior) en lugar de por nombre de marca.</p>
+        </div>
+        <div class="friccion-meta">
+          <span class="meta-badge">Categoría</span>
+          <span class="meta-badge">3/5 usuarios</span>
+        </div>
+      </div>
+
+      <div class="friccion r">
+        <div class="friccion-num-wrap">
+          <span class="friccion-num">06</span>
+          <span class="friccion-sev sev-alta">Alta</span>
+        </div>
+        <div class="friccion-body">
+          <h3 class="friccion-title">Cards de especificaciones — rage click generalizado</h3>
+          <p class="friccion-desc">4 de 5 usuarios intentaron hacer clic en las cards de especificaciones técnicas esperando más información, y nada ocurrió. U2 pidió que 'al seleccionar cada característica le dieran más información'. U5 señaló que no conocía términos como 'IP' o 'driver dimmable'. Las cards estáticas no resuelven la curiosidad del usuario no técnico.</p>
+        </div>
+        <div class="friccion-meta">
+          <span class="meta-badge">Ficha producto</span>
+          <span class="meta-badge">4/5 usuarios</span>
+        </div>
+      </div>
+
+      <div class="friccion r">
+        <div class="friccion-num-wrap">
+          <span class="friccion-num">07</span>
+          <span class="friccion-sev sev-media">Media</span>
+        </div>
+        <div class="friccion-body">
+          <h3 class="friccion-title">Dificultad para distinguir productos entre sí</h3>
+          <p class="friccion-desc">Los 5 usuarios tuvieron dificultades para diferenciar entre los 10 productos del listado. U2: 'deberían ser solo 3 y el tamaño una característica dentro del producto'. Parálisis por análisis generalizada, especialmente en mobile.</p>
+        </div>
+        <div class="friccion-meta">
+          <span class="meta-badge">Categoría</span>
+          <span class="meta-badge">5/5 usuarios</span>
+        </div>
+      </div>
+
+      <div class="friccion r">
+        <div class="friccion-num-wrap">
+          <span class="friccion-num">08</span>
+          <span class="friccion-sev sev-media">Media</span>
+        </div>
+        <div class="friccion-body">
+          <h3 class="friccion-title">Imagen no cambia al seleccionar atributo</h3>
+          <p class="friccion-desc">U3: 'al seleccionar los elementos dentro del producto la imagen no se adecúa a lo seleccionado' — ni color, ni temperatura, ni ángulo de apertura. En un producto donde el resultado visual depende de las opciones elegidas, que la imagen sea siempre la misma genera desconfianza en la selección.</p>
+        </div>
+        <div class="friccion-meta">
+          <span class="meta-badge">Ficha producto</span>
+          <span class="meta-badge">3/5 usuarios</span>
+        </div>
+      </div>
+
+      <div class="friccion r">
+        <div class="friccion-num-wrap">
+          <span class="friccion-num">09</span>
+          <span class="friccion-sev sev-media">Media</span>
+        </div>
+        <div class="friccion-body">
+          <h3 class="friccion-title">Política de devolución invisible junto al CTA</h3>
+          <p class="friccion-desc">U1 no encontró la política de devolución durante el checkout. U4: 'debería ser más evidente'. En un producto técnico de ticket medio con instalación compleja, la garantía de devolución es el principal elemento de reassurance — y está ausente donde más se necesita.</p>
+        </div>
+        <div class="friccion-meta">
+          <span class="meta-badge">Checkout</span>
+          <span class="meta-badge">2/5 usuarios</span>
+        </div>
+      </div>
+
+      <div class="friccion r">
+        <div class="friccion-num-wrap">
+          <span class="friccion-num">10</span>
+          <span class="friccion-sev sev-media">Media</span>
+        </div>
+        <div class="friccion-body">
+          <h3 class="friccion-title">Catálogo PDF en inglés · fuera del flujo</h3>
+          <p class="friccion-desc">U1 abrió el PDF y tardó 20 minutos usando el catálogo para seleccionar producto. U2 y U5 no lo abrieron 'porque no querían que se descargara'. El botón dice 'View the Catalog' en una página en español. El contenido del catálogo debería vivir en la web.</p>
+        </div>
+        <div class="friccion-meta">
+          <span class="meta-badge">Categoría</span>
+          <span class="meta-badge">U1</span>
+        </div>
+      </div>
+
+      <div class="friccion r">
+        <div class="friccion-num-wrap">
+          <span class="friccion-num">11</span>
+          <span class="friccion-sev sev-media">Media</span>
+        </div>
+        <div class="friccion-body">
+          <h3 class="friccion-title">Menú hamburguesa — duplicación y scroll errático</h3>
+          <p class="friccion-desc">U2 detectó que Invisible Light aparece duplicada en el menú hamburguesa. U4 y U5 reportaron dificultad para hacer scroll en el menú hamburguesa en mobile, donde navegaron 2 de 5 usuarios.</p>
+        </div>
+        <div class="friccion-meta">
+          <span class="meta-badge">Navegación</span>
+          <span class="meta-badge">U2 · U4 · U5</span>
+        </div>
+      </div>
+
+      <div class="friccion r">
+        <div class="friccion-num-wrap">
+          <span class="friccion-num">12</span>
+          <span class="friccion-sev sev-baja">Baja</span>
+        </div>
+        <div class="friccion-body">
+          <h3 class="friccion-title">Breadcrumb no incluye "Invisible Light"</h3>
+          <p class="friccion-desc">U3 no pudo volver a la categoría Invisible Light desde el carrito. El breadcrumb lleva a 'Downlights LED y Accesorios' en lugar de 'Invisible Light', rompiendo la narrativa de la colección y perdiendo la oportunidad de cross-sell entre productos de la misma familia.</p>
+        </div>
+        <div class="friccion-meta">
+          <span class="meta-badge">Navegación</span>
+          <span class="meta-badge">U3</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── CITAS ─── -->
+<section class="section section--cream" id="usuarios">
+  <div class="section-inner">
+    <div class="sh r">
+      <div class="sh-left">
+        <p class="sh-number">03 · La voz de los usuarios</p>
+        <h2 class="sh-title">Citas <em>textuales</em></h2>
+      </div>
+      <div class="sh-right">
+        <p class="sh-lead">Recogidas durante el test de usabilidad. Representan los momentos de mayor fricción o de mayor claridad diagnóstica de cada participante.</p>
+      </div>
+    </div>
+
+    <div class="citas-grid">
+
+      <div class="cita-card r">
+        <p class="cita-text">Me gustaría que al seleccionar cada característica dentro de las especificaciones técnicas, me dieran más información de esa característica.</p>
+        <span class="cita-author">U2 · 30 años · Ingeniero automático</span>
+      </div>
+
+      <div class="cita-card r" style="transition-delay:.05s">
+        <p class="cita-text">Demasiados productos en la página de categoría cuando deberían ser solo 3 y el tamaño sea una característica a seleccionar dentro del producto.</p>
+        <span class="cita-author">U2 · 30 años · Ingeniero automático</span>
+      </div>
+
+      <div class="cita-card r" style="transition-delay:.1s">
+        <p class="cita-text">Me hubiese gustado ver más imágenes del producto en el ambiente.</p>
+        <span class="cita-author">U3 · 50 años · Doctora</span>
+      </div>
+
+      <div class="cita-card r" style="transition-delay:.15s">
+        <p class="cita-text">La imagen del carrusel debería adaptarse de acuerdo al elemento seleccionado.</p>
+        <span class="cita-author">U3 · 50 años · Doctora</span>
+      </div>
+
+      <div class="cita-card r" style="transition-delay:.2s">
+        <p class="cita-text">Debería ser más evidente la política de devoluciones.</p>
+        <span class="cita-author">U4 · 29 años · Economista</span>
+      </div>
+
+      <div class="cita-card r" style="transition-delay:.25s">
+        <p class="cita-text">Estaría bien que te recomendara la cantidad de acuerdo a metros cuadrados.</p>
+        <span class="cita-author">U4 · 29 años · Economista</span>
+      </div>
+
+      <div class="cita-card r" style="transition-delay:.3s">
+        <p class="cita-text">Producto muy complejo. Le confunde que algo para ver se llame invisible. Ideal añadir elementos que transmitan más confianza de montaje, 'ponlo tú mismo'.</p>
+        <span class="cita-author">U5 · 31 años · Ingeniero ciberseguridad</span>
+      </div>
+
+      <div class="cita-card r" style="transition-delay:.35s">
+        <p class="cita-text">Copys demasiado de inspiración, necesito información más concreta.</p>
+        <span class="cita-author">U5 · 31 años · Ingeniero ciberseguridad</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── EDITORIAL DIVIDER 2 ─── -->
+<div class="ed-row">
+  <div class="ed-inner">
+    <div class="ed-title r">
+      [Causas de<br><em>devolución]</em>
+    </div>
+    <div class="ed-right r" style="transition-delay:.1s">
+      <p class="ed-label">04 · Análisis de riesgo post-compra</p>
+      <p class="ed-body">Las devoluciones en esta categoría no se producen porque el producto sea malo, sino porque el usuario compra sin la información suficiente para tomar la decisión correcta. Cada causa tiene una solución de diseño directa.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ─── DEVOLUCIONES ─── -->
+<section class="section section--white">
+  <div class="section-inner">
+    <div class="returns-grid">
+      <div class="return-item r">
+        <p class="return-n">Causa 01</p>
+        <h3 class="return-title">Temperatura de color incorrecta</h3>
+        <p class="return-body">4 de 5 usuarios eligieron la temperatura por intuición o la ignoraron. Sin guía visual, el riesgo de elegir luz de oficina para un dormitorio es muy alto. Este error solo se descubre tras la instalación, cuando la devolución es difícil.</p>
+      </div>
+      <div class="return-item r" style="transition-delay:.05s">
+        <p class="return-n">Causa 02</p>
+        <h3 class="return-title">Cantidad insuficiente o excesiva</h3>
+        <p class="return-body">3 de 5 usuarios reconocieron no saber cuántas unidades necesitarían. Comprar 2 unidades para un salón que necesita 6 resulta en una iluminación insuficiente que no logra el efecto deseado.</p>
+      </div>
+      <div class="return-item r" style="transition-delay:.1s">
+        <p class="return-n">Causa 03</p>
+        <h3 class="return-title">Incompatibilidad con el techo descubierta post-compra</h3>
+        <p class="return-body">U5 verbalizó no saber si podría instalar la luminaria en el techo de su casa. La web no informa sobre el espesor mínimo de techo necesario ni sobre compatibilidad con pladur fino.</p>
+      </div>
+      <div class="return-item r" style="transition-delay:.15s">
+        <p class="return-n">Causa 04</p>
+        <h3 class="return-title">Expectativas visuales no cumplidas</h3>
+        <p class="return-body">U2 señaló que las imágenes 'pierden profundidad y parecen ficticias'. Sin imágenes reales de ambiente, el usuario construye una expectativa mental basada en el copy poético. La percepción de decepción aparece aunque el producto sea exactamente lo prometido.</p>
+      </div>
+      <div class="return-item r" style="transition-delay:.2s">
+        <p class="return-n">Causa 05</p>
+        <h3 class="return-title">Instalación fallida o coste no anticipado</h3>
+        <p class="return-body">Ningún usuario tuvo claro si necesitaría un electricista ni cuánto podría costar. U3 y U4 dieron por sentado que 'alguien' se lo instalaría. Si el coste real de instalación supera las expectativas, la devolución es probable.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── RECOMENDACIONES ─── -->
+<section class="section section--cream" id="recomendaciones">
+  <div class="section-inner">
+    <div class="sh r">
+      <div class="sh-left">
+        <p class="sh-number">05 · Recomendaciones</p>
+        <h2 class="sh-title">12 propuestas<br><em>ordenadas por impacto</em></h2>
+      </div>
+      <div class="sh-right">
+        <p class="sh-lead">UX, educativo, conversión y reassurance. Las cuatro primeras son críticas y deberían implementarse en la primera iteración.</p>
+      </div>
+    </div>
+
+    <div class="recs-list">
+
+      <div class="rec r">
+        <span class="rec-id">R1</span>
+        <div class="rec-body">
+          <h3 class="rec-title">Selector guiado '¿Cuál es el tuyo?' antes del grid de productos</h3>
+          <p class="rec-desc">Un configurador visual de 3 pasos al inicio de la categoría: ¿Dónde quieres instalarlo? → ¿Qué efecto buscas? → ¿Cuál es tu tipo de techo? El resultado filtra los 10 productos a los 2-3 que encajan. Convierte una decisión técnica en una decisión guiada.</p>
+          <div class="rec-tags"><span class="rec-tag">UX</span><span class="rec-tag">Educativo</span><span class="rec-tag">Conversión</span></div>
+        </div>
+        <div class="rec-right"><span class="priority-chip p-medio">Medio plazo</span></div>
+      </div>
+
+      <div class="rec r">
+        <span class="rec-id">R2</span>
+        <div class="rec-body">
+          <h3 class="rec-title">Integrar el contenido del catálogo como secciones web</h3>
+          <p class="rec-desc">El catálogo contiene información valiosa que debería vivir en la propia página como contenido editorial con scroll: '¿Qué es Invisible Light?', 'Dónde usarlo', 'Cómo elegir tu modelo', 'Qué implica la instalación'. Elimina el botón en inglés y convierte la categoría en una experiencia educativa.</p>
+          <div class="rec-tags"><span class="rec-tag">Educativo</span><span class="rec-tag">Retención</span><span class="rec-tag">B2C</span></div>
+        </div>
+        <div class="rec-right"><span class="priority-chip p-largo">Largo plazo</span></div>
+      </div>
+
+      <div class="rec r">
+        <span class="rec-id">R3</span>
+        <div class="rec-body">
+          <h3 class="rec-title">Agrupar por familia de producto, no por SKU</h3>
+          <p class="rec-desc">Mostrar 3 familias principales (con marco / sin marco / superficie) como cards principales, y que tamaño, color y temperatura sean atributos dentro de cada familia. Reduce la parálisis por análisis y hace la categoría navegable en mobile.</p>
+          <div class="rec-tags"><span class="rec-tag">UX</span><span class="rec-tag">Arquitectura IA</span><span class="rec-tag">Conversión</span></div>
+        </div>
+        <div class="rec-right"><span class="priority-chip p-medio">Medio plazo</span></div>
+      </div>
+
+      <div class="rec r">
+        <span class="rec-id">R4</span>
+        <div class="rec-body">
+          <h3 class="rec-title">Corregir la duplicación de 'Invisible Light' en el menú hamburguesa</h3>
+          <p class="rec-desc">La categoría aparece dentro de 'Iluminación' y también fuera, al mismo nivel. Mantenerla únicamente dentro de Iluminación, con una distinción visual que la destaque como colección especial.</p>
+          <div class="rec-tags"><span class="rec-tag">UX</span><span class="rec-tag">Navegación</span></div>
+        </div>
+        <div class="rec-right"><span class="priority-chip p-inmediata">Inmediata</span></div>
+      </div>
+
+      <div class="rec r">
+        <span class="rec-id">R5</span>
+        <div class="rec-body">
+          <h3 class="rec-title">Guía visual de temperatura de color junto al selector — prioridad máxima</h3>
+          <p class="rec-desc">Junto al selector 2700K / 3000K / 4000K, añadir una mini-guía visual con tres imágenes y una línea explicativa. Es el elemento con mayor impacto directo en reducción de devoluciones. 4 de 5 usuarios no supieron elegir sin esta información.</p>
+          <div class="rec-tags"><span class="rec-tag">Educativo</span><span class="rec-tag">Reduce devoluciones</span><span class="rec-tag">Conversión</span></div>
+        </div>
+        <div class="rec-right"><span class="priority-chip p-inmediata">Inmediata</span></div>
+      </div>
+
+      <div class="rec r">
+        <span class="rec-id">R6</span>
+        <div class="rec-body">
+          <h3 class="rec-title">Calculadora de iluminación: '¿Cuántas necesito para mi espacio?'</h3>
+          <p class="rec-desc">Componente interactivo: campo 'Metros cuadrados' → resultado en número recomendado de unidades + 'Añadir pack recomendado'. Elimina la incertidumbre de cantidad, aumenta el ticket medio y reduce devoluciones por iluminación insuficiente.</p>
+          <div class="rec-tags"><span class="rec-tag">Educativo</span><span class="rec-tag">Ticket medio</span><span class="rec-tag">Reduce devoluciones</span></div>
+        </div>
+        <div class="rec-right"><span class="priority-chip p-medio">Medio plazo</span></div>
+      </div>
+
+      <div class="rec r">
+        <span class="rec-id">R7</span>
+        <div class="rec-body">
+          <h3 class="rec-title">Imágenes de ambiente como primer elemento de la galería</h3>
+          <p class="rec-desc">El producto instalado en un salón real, un dormitorio y una cocina debe aparecer antes que la foto de producto aislado. Implementar variantes de imagen por temperatura seleccionada cierra el loop de visualización que U3 identificó.</p>
+          <div class="rec-tags"><span class="rec-tag">UX</span><span class="rec-tag">Add-to-cart</span><span class="rec-tag">Confianza</span></div>
+        </div>
+        <div class="rec-right"><span class="priority-chip p-corto">Corto plazo</span></div>
+      </div>
+
+      <div class="rec r">
+        <span class="rec-id">R8</span>
+        <div class="rec-body">
+          <h3 class="rec-title">Bloque de instalación honesto y claro</h3>
+          <p class="rec-desc">Una sección específica con tres puntos concretos: (1) herramientas necesarias, (2) si se requiere electricista certificado, (3) compatibilidad por tipo de techo. La honestidad genera más confianza que el optimismo. U5 no compraría precisamente porque 'le parece un producto muy complejo'.</p>
+          <div class="rec-tags"><span class="rec-tag">Educativo</span><span class="rec-tag">Confianza</span><span class="rec-tag">Reduce devoluciones</span></div>
+        </div>
+        <div class="rec-right"><span class="priority-chip p-corto">Corto plazo</span></div>
+      </div>
+
+      <div class="rec r">
+        <span class="rec-id">R9</span>
+        <div class="rec-body">
+          <h3 class="rec-title">Cards de especificaciones expandibles con tooltip educativo</h3>
+          <p class="rec-desc">Tooltip o modal al hacer clic en cada especificación: 'IP65 — apto para exterior y zonas húmedas', 'CRI>90 — reproduce los colores de forma muy fiel', 'driver dimmable — compatible con interruptores reguladores'. Convierte un elemento decorativo en una herramienta educativa.</p>
+          <div class="rec-tags"><span class="rec-tag">UX</span><span class="rec-tag">Educativo</span><span class="rec-tag">B2C</span></div>
+        </div>
+        <div class="rec-right"><span class="priority-chip p-corto">Corto plazo</span></div>
+      </div>
+
+      <div class="rec r">
+        <span class="rec-id">R10</span>
+        <div class="rec-body">
+          <h3 class="rec-title">Reassurance visible junto al CTA de compra</h3>
+          <p class="rec-desc">Junto al botón 'Añadir al carrito': (1) 'Devolución gratuita en 30 días', (2) 'Garantía X años', (3) 'Pago 100% seguro'. En un producto técnico de ticket medio con instalación compleja, el reassurance en el CTA puede ser la diferencia entre completar o abandonar la compra.</p>
+          <div class="rec-tags"><span class="rec-tag">Confianza</span><span class="rec-tag">Conversión</span><span class="rec-tag">Reassurance</span></div>
+        </div>
+        <div class="rec-right"><span class="priority-chip p-inmediata">Inmediata</span></div>
+      </div>
+
+      <div class="rec r">
+        <span class="rec-id">R11</span>
+        <div class="rec-body">
+          <h3 class="rec-title">Imagen del carrusel dinámica según selección de atributos</h3>
+          <p class="rec-desc">Variantes de imagen asociadas a cada combinación de atributos (mínimo: negro vs blanco, 2700K vs 4000K). Da al usuario retroalimentación visual inmediata de su elección y refuerza la confianza en que está seleccionando lo correcto.</p>
+          <div class="rec-tags"><span class="rec-tag">UX</span><span class="rec-tag">Confianza</span></div>
+        </div>
+        <div class="rec-right"><span class="priority-chip p-corto">Corto plazo</span></div>
+      </div>
+
+      <div class="rec r">
+        <span class="rec-id">R12</span>
+        <div class="rec-body">
+          <h3 class="rec-title">Corregir el breadcrumb para que incluya 'Invisible Light'</h3>
+          <p class="rec-desc">El breadcrumb actual lleva a 'Downlights LED y Accesorios' en lugar de 'Invisible Light', haciendo invisible (de forma involuntaria) la colección. La corrección es técnicamente sencilla y refuerza la narrativa de colección facilitando el cross-sell.</p>
+          <div class="rec-tags"><span class="rec-tag">UX</span><span class="rec-tag">Navegación</span></div>
+        </div>
+        <div class="rec-right"><span class="priority-chip p-inmediata">Inmediata</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── MATRIZ ─── -->
+<section class="section section--white" id="matriz">
+  <div class="section-inner">
+    <div class="sh r">
+      <div class="sh-left">
+        <p class="sh-number">07 · Matriz de priorización</p>
+        <h2 class="sh-title">Impacto<br><em>vs. Esfuerzo</em></h2>
+      </div>
+      <div class="sh-right">
+        <p class="sh-lead">Las recomendaciones en la zona de Alto impacto / Bajo esfuerzo son la primera iteración. Cuatro acciones pueden implementarse de forma inmediata con impacto directo en conversión.</p>
+      </div>
+    </div>
+
+    <table class="matrix-table r">
+      <thead>
+        <tr>
+          <th>Recomendación</th>
+          <th>Impacto</th>
+          <th>Esfuerzo</th>
+          <th>Prioridad</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>R5 · Guía visual temperatura de color</td>
+          <td>Alto</td>
+          <td>Bajo</td>
+          <td><span class="p-dot pd-inmediata">Inmediata</span></td>
+        </tr>
+        <tr>
+          <td>R10 · Reassurance visible junto al CTA</td>
+          <td>Alto</td>
+          <td>Bajo</td>
+          <td><span class="p-dot pd-inmediata">Inmediata</span></td>
+        </tr>
+        <tr>
+          <td>R12 · Corregir breadcrumb → Invisible Light</td>
+          <td>Medio</td>
+          <td>Bajo</td>
+          <td><span class="p-dot pd-inmediata">Inmediata</span></td>
+        </tr>
+        <tr>
+          <td>R4 · Corregir duplicación menú hamburguesa</td>
+          <td>Medio</td>
+          <td>Bajo</td>
+          <td><span class="p-dot pd-inmediata">Inmediata</span></td>
+        </tr>
+        <tr>
+          <td>R7 · Imágenes de ambiente como primer elemento</td>
+          <td>Alto</td>
+          <td>Medio</td>
+          <td><span class="p-dot pd-corto">Corto plazo</span></td>
+        </tr>
+        <tr>
+          <td>R8 · Bloque de instalación honesto y claro</td>
+          <td>Alto</td>
+          <td>Medio</td>
+          <td><span class="p-dot pd-corto">Corto plazo</span></td>
+        </tr>
+        <tr>
+          <td>R9 · Cards de especificaciones expandibles</td>
+          <td>Alto</td>
+          <td>Medio</td>
+          <td><span class="p-dot pd-corto">Corto plazo</span></td>
+        </tr>
+        <tr>
+          <td>R11 · Imagen de carrusel dinámica por atributo</td>
+          <td>Medio</td>
+          <td>Medio</td>
+          <td><span class="p-dot pd-corto">Corto plazo</span></td>
+        </tr>
+        <tr>
+          <td>R6 · Calculadora de iluminación por m²</td>
+          <td>Alto</td>
+          <td>Medio-alto</td>
+          <td><span class="p-dot pd-medio">Medio plazo</span></td>
+        </tr>
+        <tr>
+          <td>R1 · Selector guiado '¿Cuál es el tuyo?'</td>
+          <td>Alto</td>
+          <td>Alto</td>
+          <td><span class="p-dot pd-medio">Medio plazo</span></td>
+        </tr>
+        <tr>
+          <td>R3 · Agrupación por familia de producto</td>
+          <td>Medio</td>
+          <td>Medio-alto</td>
+          <td><span class="p-dot pd-medio">Medio plazo</span></td>
+        </tr>
+        <tr>
+          <td>R2 · Contenido del catálogo como secciones web</td>
+          <td>Alto</td>
+          <td>Alto</td>
+          <td><span class="p-dot pd-largo">Largo plazo</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ─── OPORTUNIDADES ─── -->
+<section class="section section--cream" id="oportunidades">
+  <div class="section-inner">
+    <div class="sh r">
+      <div class="sh-left">
+        <p class="sh-number">06 · Oportunidades B2B → B2C</p>
+        <h2 class="sh-title">El puente entre<br><em>inspiración y decisión</em></h2>
+      </div>
+      <div class="sh-right">
+        <p class="sh-lead">Invisible Light ya tiene el producto correcto, el precio correcto y el copy emocional correcto. Lo que le falta es el puente entre la inspiración y la decisión. Ese puente tiene cuatro pilares.</p>
+      </div>
+    </div>
+
+    <div class="opp-grid">
+      <div class="opp-item r">
+        <p class="opp-n">Oportunidad 01</p>
+        <h3 class="opp-title">De la terminología técnica al lenguaje de beneficio</h3>
+        <p class="opp-body">B2B dice: 'Downlight LED empotrable sin marco trimless redondo Ø5,3 cm, temperatura 3000K, 8W, ángulo 38°'. B2C necesita escuchar: 'Una ranura de luz que desaparece en tu techo. Perfecta para salones de líneas limpias. Luz neutra que realza los colores sin cansar'. El lenguaje técnico debe existir — en las especificaciones — pero no puede ser el primer idioma de la ficha de producto.</p>
+      </div>
+      <div class="opp-item r" style="transition-delay:.05s">
+        <p class="opp-n">Oportunidad 02</p>
+        <h3 class="opp-title">De la galería de producto a la galería de transformación</h3>
+        <p class="opp-body">Un profesional B2B compra sabiendo exactamente cómo quedará el resultado. Un usuario B2C necesita verlo para creerlo. La galería debería funcionar como un antes/después visual: el espacio sin la luminaria, con la luminaria activa, el detalle del empotrado en el techo y el ambiente completo en distintas horas del día.</p>
+      </div>
+      <div class="opp-item r" style="transition-delay:.1s">
+        <p class="opp-n">Oportunidad 03</p>
+        <h3 class="opp-title">De la especificación a la guía de decisión</h3>
+        <p class="opp-body">La oportunidad es convertir cada especificación técnica en una respuesta a una pregunta del usuario: CRI>90 → 'Reproduce los colores de tus paredes y muebles tal como son', IP44 → 'Puedes instalarlo en el baño o en zonas con humedad', driver dimmable → 'Compatible con interruptores reguladores de intensidad'. El dato técnico no desaparece — se contextualiza.</p>
+      </div>
+      <div class="opp-item r" style="transition-delay:.15s">
+        <p class="opp-n">Oportunidad 04</p>
+        <h3 class="opp-title">De la compra de un producto a la compra de un resultado</h3>
+        <p class="opp-body">Un profesional B2B compra luminarias. Un usuario B2C compra el ambiente que esas luminarias crean. La oportunidad mayor es vender el resultado: 'así quedará tu salón', 'así quedará tu dormitorio' — con imágenes reales y calculadoras que conecten la compra con el espacio concreto del usuario.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── EDITORIAL DIVIDER 3 ─── -->
+<div class="ed-row" id="conclusion">
+  <div class="ed-inner">
+    <div class="ed-title r">
+      [08<br><em>Conclusión]</em>
+    </div>
+    <div class="ed-right r" style="transition-delay:.1s">
+      <p class="ed-label">La brecha no está en el producto</p>
+      <p class="ed-body">Invisible Light tiene todo lo necesario para ser la categoría de mayor potencial de diferenciación de Sklum en el segmento B2C de iluminación. El producto es excelente. La brecha está en la experiencia digital que lo rodea.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ─── CONCLUSIÓN ─── -->
+<section class="section section--white">
+  <div class="section-inner">
+    <div class="conclusion-grid">
+      <div class="conclusion-quote r">
+        La oportunidad de Invisible Light no es hacer el producto más sencillo — es hacer la experiencia de comprarlo tan clara como el producto es hermoso.
+        <em>— Conclusión del informe</em>
+      </div>
+      <div class="conclusion-body r" style="transition-delay:.1s">
+        <p>El test de usabilidad con 5 participantes de perfiles muy distintos confirma un patrón consistente: todos llegaron con interés genuino, todos se bloquearon en algún momento por falta de información, y 4 de 5 acabaron dispuestos a comprar a pesar de esas fricciones.</p>
+        <p>Ese dato es muy positivo — significa que la demanda existe y que la resistencia no es hacia el producto, sino hacia la incertidumbre que genera la experiencia actual.</p>
+        <p>El usuario que no compraría (U5) no rechazó el producto — rechazó la complejidad percibida. Y esa complejidad percibida es exactamente lo que las 12 recomendaciones de este informe están diseñadas para eliminar: con guías de decisión, imágenes de contexto real, información de instalación honesta y elementos de confianza en los momentos críticos del journey.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer class="footer">
+  <span class="footer-logo">sklum</span>
+  <div class="footer-center">
+    Invisible Light · Informe UX · Mayo 2026
+  </div>
+  <div class="footer-right">
+    Laura Chirino<br>
+    Product Designer & UX/UI
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('v'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.07, rootMargin: '0px 0px -30px 0px' });
+
+  document.querySelectorAll('.r').forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
