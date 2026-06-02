@@ -4,7 +4,7 @@
     {
       "name": "landing",
       "runtimeExecutable": "npx",
-      "runtimeArgs": ["serve", "dist", "-p", "3333", "--no-clipboard"],
+      "runtimeArgs": ["serve", ".", "-p", "3333", "--no-clipboard"],
       "port": 3333
     }
   ]

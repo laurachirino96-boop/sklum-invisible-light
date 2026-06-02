@@ -17,7 +17,20 @@
       "mcp__Claude_in_Chrome__computer",
       "mcp__Claude_in_Chrome__javascript_tool",
       "Bash(mkdir -p \"D:/__WORK/Sklum/.claude\" && echo \"done\")",
-      "mcp__Claude_Preview__preview_start"
+      "mcp__Claude_Preview__preview_start",
+      "Bash(python -c ' *)",
+      "Bash(py --version)",
+      "Bash(where python*)",
+      "PowerShell(& \"C:\\\\Users\\\\laura\\\\AppData\\\\Local\\\\Microsoft\\\\WindowsApps\\\\python.exe\" --version 2>&1)",
+      "Bash(node extract.js)",
+      "Bash(npm install *)",
+      "Bash(netlify --version)",
+      "Bash(vercel --version)",
+      "Bash(surge --version)",
+      "Bash(netlify status *)",
+      "Bash(netlify deploy *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)"
     ]
   }
 }
